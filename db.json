@@ -1,0 +1,28 @@
+{
+    "lists": [
+        {
+            "id" : 1,
+            "title" : "Groceries"
+        },
+        {
+            "id" : 2,
+            "title" : "Toys & Gifts"
+        }
+    ],
+    "items": [
+        {
+            "id" : 1,
+            "listId" : 1,
+            "title" : "Washing Powder",
+            "quantity" : 1,
+            "price" : 6.99
+        },
+        {
+            "id" : 1,
+            "listId" : 1,
+            "title" : "Rice",
+            "quantity" : 1,
+            "price" : 0.99
+        }
+    ]    
+}
