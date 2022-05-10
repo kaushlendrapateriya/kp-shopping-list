@@ -1,6 +1,5 @@
 import React from 'react';
 import styledComponents from 'styled-components';
-import withDataFetching from '../withDataFetching';
 import SubHeader from '../components/Header/SubHeader';
 import ListItem from '../components/ListItem/ListItem';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -17,18 +16,20 @@ const Alert = styledComponents.span`
     text-align: center;
 `;
 
-const List = ({ data, loading, error }) => {
+const List = ({ lists, listItems, loading, error }) => {
     let params = useParams();
     let navigate = useNavigate();
-    const items = data && data.filter(item => item.listId === parseInt(params.id));
+    const items = listItems && listItems.filter(item => item.listId === parseInt(params.id));
+    const list = lists && lists.find(list => list.id === parseInt(params.id));
     if (items.length === 0) {
         error = "There are no items for this list.";
     }
     return !loading && !error ? (
         <>
-            {navigate && (
+            {navigate && list && (
                 <SubHeader 
                     goBack={() => navigate(-1)}
+                    title={list.title}
                     openForm={() => navigate(`/list/${params.id}/new`)}
                 />
             )}
@@ -38,9 +39,10 @@ const List = ({ data, loading, error }) => {
         </>
     ) : (
         <>
-            {navigate && (
+            {navigate && list && (
                 <SubHeader 
                     goBack={() => navigate(-1)}
+                    title={list.title}
                     openForm={() => navigate(`/list/${params.id}/new`)}
                 />
             )}
@@ -50,6 +52,4 @@ const List = ({ data, loading, error }) => {
     );
 };
 
-export default withDataFetching({
-    dataSource: 'https://my-json-server.typicode.com/pranayfpackt/-React-Projects/items',
-})(List);
+export default List;

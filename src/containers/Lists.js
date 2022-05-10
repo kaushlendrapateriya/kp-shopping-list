@@ -1,7 +1,6 @@
 import React from "react";
 import styledComponents from "styled-components";
 import { Link } from 'react-router-dom';
-import withDataFetching from "../withDataFetching";
 import SubHeader from "../components/Header/SubHeader";
 
 const ListWrapper = styledComponents.div`
@@ -33,13 +32,13 @@ const Alert = styledComponents.span`
     text-align: center;
 `;
 
-const Lists = ({ data, loading, error }) => 
+const Lists = ({ lists, loading=false, error=false }) => 
     !loading && !error ? (
         <>
             <SubHeader title={'Your Lists'} />
             <ListWrapper>
-                {data && 
-                    data.map(list => (
+                {lists && 
+                    lists.map(list => (
                         <ListLink key={list.id} to={`/list/${list.id}`}>
                             <Title>{list.title}</Title>
                         </ListLink>
@@ -51,6 +50,4 @@ const Lists = ({ data, loading, error }) =>
         <Alert>{loading ? 'Loading...' : error}</Alert>
     );
 
-export default withDataFetching({
-    dataSource: 'https://my-json-server.typicode.com/PacktPublishing/React-Projects/lists',
-})(Lists);
+export default Lists;
