@@ -1,5 +1,6 @@
 import React from "react";
 import styledComponents from "styled-components";
+import { ItemsContext } from "../context/ItemsContextProvider";
 import SubHeader from "../components/Header/SubHeader";
 import FormItem from "../components/FormItem/FormItem";
 import Button from "../components/Button/Button";
@@ -17,9 +18,10 @@ const SubmitButton = styledComponents(Button)`
     margin: 2% 0;
 `;
 
-const Form = ({ addItemRequest }) => {
+const Form = () => {
     let navigate = useNavigate();
     let params = useParams();
+    const { addItemRequest } = React.useContext(ItemsContext);
     const [title, setTitle] = React.useState('');
     const [quantity, setQuantity] = React.useState('');
     const [price, setPrice] = React.useState('');

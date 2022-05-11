@@ -5,7 +5,7 @@ export const ItemsContext = React.createContext();
 const initialValue = {
     items: [],
     loading: true,
-    error: '',
+    error: true,
 };
 
 const reducer = (value, action) => {
@@ -15,6 +15,7 @@ const reducer = (value, action) => {
                 ...value,
                 items: action.payload,
                 loading: false,
+                error: false,
             };    
         case 'GET_ITEMS_ERROR':
             return {
@@ -28,6 +29,7 @@ const reducer = (value, action) => {
                 ...value,
                 items: [...value.items, action.payload],
                 loading: false,
+                error:false,
             };
         case 'ADD_ITEM_ERROR':
             return {
@@ -76,10 +78,15 @@ const ItemsContextProvider = ({ children }) => {
         const result = await fetchData(
             `https://my-json-server.typicode.com/kaushlendrapateriya/kp-shopping-list/lists/${id}/items`,
             );
+        //console.log(result.data.length);
+
         if (result.data && result.data.length) {
+            //console.log('here');
             dispatch({ type: 'GET_ITEMS_SUCCESS', payload: result.data });
         } else {
-            dispatch({ type: 'GET_ITEMS_ERROR', payload: result.error });
+            //console.log('hee00');
+            //console.log(result.error);
+            dispatch({ type: 'GET_ITEMS_ERROR', payload: true });
         }    
     };
 

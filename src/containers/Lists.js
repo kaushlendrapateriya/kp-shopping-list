@@ -1,8 +1,8 @@
 import React from "react";
 import styledComponents from "styled-components";
 import { Link } from 'react-router-dom';
-import SubHeader from "../components/Header/SubHeader";
 import { ListsContext } from "../context/ListsContextProvider";
+import SubHeader from "../components/Header/SubHeader";
 
 const ListWrapper = styledComponents.div`
     display: flex;
@@ -33,13 +33,15 @@ const Alert = styledComponents.span`
     text-align: center;
 `;
 
-const Lists = ({ lists, loading, error, getListsRequest }) => {
-    
-    React.useEffect(() => {
+const Lists = () => {
+    const { lists, loading, error, getListsRequest } = React.useContext(
+        ListsContext,
+    );
+    React.useLayoutEffect(() => {
         if (!lists.length) {
             getListsRequest();
         }
-    }, [lists, getListsRequest]);
+    }, [getListsRequest, lists]);
     
     return !loading && !error ? (
         <>
