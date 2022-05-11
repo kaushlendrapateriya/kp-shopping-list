@@ -31,15 +31,27 @@ const App = () => {
         <ListsContextProvider>
           <ItemsContextProvider>
             <ListsContext.Consumer>
-              {({ lists }) => (
+              {({ list, lists, loading: listsLoading, error: listsError, getListsRequest, getListRequest }) => (
                 <ItemsContext.Consumer>
-                  {({ items }) => (
+                  {({ items, loading: itemsLoading, error: itemsError, getItemsRequest }) => (
                     <Routes>
                       <Route path='/' 
-                        element={lists && <Lists lists={lists} />} 
+                        element={lists && <Lists 
+                          lists={lists} 
+                          loading={listsLoading} 
+                          error={listsError} 
+                          getListsRequest={getListsRequest} 
+                          />} 
                       />    
                       <Route path='/list/:id' 
-                        element={lists && items && <List lists={lists} listItems={items} />} />
+                        element={list && items && <List 
+                          list={list} items={items} 
+                          loading={itemsLoading} 
+                          error={itemsError} 
+                          getItemsRequest={getItemsRequest}
+                          getListRequest={getListRequest} 
+                          />} 
+                      />
                       <Route path='/list/:id/new' element={<Form />} />
                       <Route 
                         path='*' 
@@ -55,9 +67,7 @@ const App = () => {
                 
               )}
             </ListsContext.Consumer>
-          </ItemsContextProvider>
-          
-          
+          </ItemsContextProvider>         
         </ListsContextProvider>        
       </AppWrapper>
     </>

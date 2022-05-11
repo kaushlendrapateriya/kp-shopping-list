@@ -16,14 +16,23 @@ const Alert = styledComponents.span`
     text-align: center;
 `;
 
-const List = ({ lists, listItems, loading, error }) => {
+const List = ({ list, items, loading, error, getItemsRequest, getListRequest }) => {
     let params = useParams();
     let navigate = useNavigate();
-    const items = listItems && listItems.filter(item => item.listId === parseInt(params.id));
-    const list = lists && lists.find(list => list.id === parseInt(params.id));
-    if (items.length === 0) {
-        error = "There are no items for this list.";
-    }
+    //const items = items && items.filter(item => item.listId === parseInt(params.id));
+    //const list = lists && lists.find(list => list.id === parseInt(params.id));
+    React.useEffect(() => {
+        if (!list.id) {
+            getListRequest(params.id);
+        }
+
+        if (!items.length > 0) {
+            getItemsRequest(params.id);
+        }
+    }, [items, list, params.id, getItemsRequest, getListRequest]);    
+    // if (items.length === 0) {
+    //     error = "There are no items for this list.";
+    // }
     return !loading && !error ? (
         <>
             {navigate && list && (

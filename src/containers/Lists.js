@@ -2,6 +2,7 @@ import React from "react";
 import styledComponents from "styled-components";
 import { Link } from 'react-router-dom';
 import SubHeader from "../components/Header/SubHeader";
+import { ListsContext } from "../context/ListsContextProvider";
 
 const ListWrapper = styledComponents.div`
     display: flex;
@@ -32,8 +33,15 @@ const Alert = styledComponents.span`
     text-align: center;
 `;
 
-const Lists = ({ lists, loading=false, error=false }) => 
-    !loading && !error ? (
+const Lists = ({ lists, loading, error, getListsRequest }) => {
+    
+    React.useEffect(() => {
+        if (!lists.length) {
+            getListsRequest();
+        }
+    }, [lists, getListsRequest]);
+    
+    return !loading && !error ? (
         <>
             <SubHeader title={'Your Lists'} />
             <ListWrapper>
@@ -49,5 +57,7 @@ const Lists = ({ lists, loading=false, error=false }) =>
     ) : (
         <Alert>{loading ? 'Loading...' : error}</Alert>
     );
+} 
+    
 
 export default Lists;
