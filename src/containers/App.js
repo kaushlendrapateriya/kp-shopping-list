@@ -33,7 +33,7 @@ const App = () => {
             <ListsContext.Consumer>
               {({ list, lists, loading: listsLoading, error: listsError, getListsRequest, getListRequest }) => (
                 <ItemsContext.Consumer>
-                  {({ items, loading: itemsLoading, error: itemsError, getItemsRequest }) => (
+                  {({ items, loading: itemsLoading, error: itemsError, getItemsRequest, addItemRequest }) => (
                     <Routes>
                       <Route path='/' 
                         element={lists && <Lists 
@@ -52,7 +52,7 @@ const App = () => {
                           getListRequest={getListRequest} 
                           />} 
                       />
-                      <Route path='/list/:id/new' element={<Form />} />
+                      <Route path='/list/:id/new' element={<Form  addItemRequest={addItemRequest} />} />
                       <Route 
                         path='*' 
                         element={

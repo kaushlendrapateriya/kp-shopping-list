@@ -93,6 +93,17 @@ const ListsContextProvider = ({ children }) => {
             })
         }
     }
+
+    /*const addListRequest = (content) => {
+        actionDispatch({
+            type: 'ADD_LIST_REQUEST',
+            payload: {
+                dataSource: 'https://my-json-server.typicode.com/kaushlendrapateriya/kp-shopping-list/items',
+                content,
+            }
+        });
+    };*/
+
     return (
         <ListsContext.Provider 
             value={{ ...value, getListsRequest, getListRequest }}>

@@ -38,6 +38,7 @@ const FormItem = ({
             id={id}
             placeholder={placeholder}
             value={value}
+            onChange={e => handleOnChange(e.target.value)}
         />
     </FormItemWrapper>
 );
